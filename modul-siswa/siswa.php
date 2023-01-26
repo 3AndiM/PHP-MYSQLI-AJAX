@@ -1,40 +1,19 @@
-<?php
-
-session_start();
-
-if (!$_SESSION['id_user']) {
-    echo '<script>
-    alert("anda mesti login dulu");
-    window.location.href = "index.php";
-    </script>
-    ';
-}
-
-?>
-
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="asset/bootstrap/css/bootstrap.min.css">
+    <title>Data Siswa</title>
+  </head>
 
-    <title>Dashboard</title>
-</head>
+  <body>
 
-<body>
-
-    <div class="container" style="margin-top: 50px">
-        <div class="row">
-
-            <?php include '../assets/menu.php';
-            // echo $_SERVER['SERVER_NAME'];
-            ?>
-
-           
-            <div class="col-md-9">
-            <div class="card">
+    <div class="container" style="margin-top: 80px">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
             <div class="card-header">
               DATA SISWA
             </div>
@@ -74,12 +53,10 @@ if (!$_SESSION['id_user']) {
               </table>
             </div>
           </div>
-            </div>
-
-        </div>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script>
@@ -87,6 +64,5 @@ if (!$_SESSION['id_user']) {
           $('#myTable').DataTable();
       } );
     </script>
-</body>
-
+  </body>
 </html>
