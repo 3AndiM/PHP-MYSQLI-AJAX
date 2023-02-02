@@ -15,7 +15,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              DATA SISWA
+              <i class="fa-solid fa-users">DATA SISWA</i>
             </div>
             <div class="card-body">
               <a href="tambah-siswa.php" class="btn btn-md btn-success" style="margin-bottom: 10px">TAMBAH DATA</a>
@@ -44,7 +44,7 @@
                       <td><?php echo $row['alamat'] ?></td>
                       <td class="text-center">
                         <a href="edit-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-primary">EDIT</a>
-                        <a href="hapus-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-danger">HAPUS</a>
+                        <a href="hapus-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i> HAPUS</a>
                       </td>
                   </tr>
 
