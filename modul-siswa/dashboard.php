@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+include '../config/koneksi.php';
 
 if (!$_SESSION['id_user']) {
     echo '<script>
@@ -9,7 +10,29 @@ if (!$_SESSION['id_user']) {
     </script>
     ';
 }
-
+// jika tombol simpan/add di klik
+if (isset($_POST['addSiswa'])) {
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $nis = $_POST['nis'];
+    $alamat = $_POST['alamat'];
+    $q = "INSERT INTO tbl_siswa(nama_lengkap, nis, alamat) VALUES (' $nama_lengkap  ', '  $nis  ', '  $alamat  ')";
+    $connection->query($q);
+}
+//jika tombol hapus di klik
+if (isset($_POST['hapusSiswa'])) {
+    $id_siswa = $_POST['id_siswa'];
+    $q = "DELETE FROM tbl_siswa WHERE id_siswa = '$id_siswa'";
+    $connection->query($q);
+}
+// jika tombol update di klik
+if (isset($_POST['update'])) {
+    $id_siswa = $_POST['id_siswa'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $nis = $_POST['nis'];
+    $alamat = $_POST['alamat'];
+    $q = "UPDATE tbl_siswa SET nama_lengkap='$nama_lengkap', nis='$nis', alamat='$alamat' WHERE id_siswa = '$id_siswa'";
+    $connection->query($q);
+}
 ?>
 
 <!doctype html>
@@ -29,51 +52,116 @@ if (!$_SESSION['id_user']) {
         <div class="row">
 
             <?php include '../assets/menu.php';
-            // echo $_SERVER['SERVER_NAME'];
             ?>
 
-           
             <div class="col-md-9">
-            <div class="card">
-            <div class="card-header">
-              DATA SISWA
-            </div>
-            <div class="card-body">
-              <a href="tambah-siswa.php" class="btn btn-md btn-success" style="margin-bottom: 10px">TAMBAH DATA</a>
-              <table class="table table-bordered" id="myTable">
-                <thead>
-                  <tr>
-                    <th scope="col">NO.</th>
-                    <th scope="col">NISN</th>
-                    <th scope="col">NAMA LENGKAP</th>
-                    <th scope="col">ALAMAT</th>
-                    <th scope="col">AKSI</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php 
-                      include('koneksi.php');
-                      $no = 1;
-                      $query = mysqli_query($connection,"SELECT * FROM tbl_siswa");
-                      while($row = mysqli_fetch_array($query)){
-                  ?>
+                <div class="card">
+                    <div class="card-body">
+                        <label>SISWA</label>
+                        Selamat Datang <?php echo $_SESSION['username'] ?>
+                        <br>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#modalAdd">+ tambah data</button>
+                        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">Tambah Data</div>
+                                    <div class="modal-body">
+                                        <form action="" method="post">
+                                            <div class="form-group">
+                                                <label>Nama Lengkap</label>
+                                                <input type="text" placeholder="isikan nama anda" name="nama_lengkap" id="" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>NIS</label>
+                                                <input type="text" placeholder="isikan nama NIS" name="nis" id="" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Alamat</label>
+                                                <input type="text" placeholder="isikan alamat" name="alamat" id="" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <button name="addSiswa" type="submit" class="form-control btn btn-success">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>nama lengkap</th>
+                                    <th>nis</th>
+                                    <th>alamat</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                $q = "SELECT * FROM tbl_siswa";
+                                $r = $connection->query($q);
+                                while ($d = mysqli_fetch_object($r)) { ?>
+                                    <tr>
+                                        <td><?= $no;
+                                            $no++; ?></td>
+                                        <td>
+                                            <?= $d->nama_lengkap ?>
+                                        </td>
+                                        <td>
+                                            <?= $d->nis ?>
+                                        </td>
+                                        <td>
+                                            <?= $d->alamat ?>
+                                        </td>
+                                        <td>
+                                            <form action="" method="post">
+                                                <input type="hidden" name="id_siswa" value="<?= $d->id_siswa ?>">
+                                                <button name="hapusSiswa" class="btn btn-danger">hapus
+                                            </form>
+                                        </td>
 
-                  <tr>
-                      <td><?php echo $no++ ?></td>
-                      <td><?php echo $row['nisn'] ?></td>
-                      <td><?php echo $row['nama_lengkap'] ?></td>
-                      <td><?php echo $row['alamat'] ?></td>
-                      <td class="text-center">
-                        <a href="edit-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-primary">EDIT</a>
-                        <a href="hapus-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-danger">HAPUS</a>
-                      </td>
-                  </tr>
-
-                <?php } ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdate<?= $d->id_siswa ?>">edit</button>
+                                            <div class="modal fade" id="modalUpdate<?= $d->id_siswa ?>">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">Edit Data</div>
+                                                            <div class="modal-body">
+                                                                <form action="" method="post">
+                                                                    <input type="hidden" name="id_siswa" value="<?= $d->id_siswa ?>">
+                                                                    <div class="form-group">
+                                                                        <label>Nama Lengkap</label>
+                                                                        <input type="text" value="<?= $d->nama_lengkap ?>" placeholder="isikan nama anda" name="nama_lengkap" id="" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>NIS</label>
+                                                                        <input type="text" value="<?= $d->nis ?>" placeholder="isikan nama NIS" name="nis" id="" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Alamat</label>
+                                                                        <input type="text" value="<?= $d->alamat ?>" placeholder="isikan alamat" name="alamat" id="" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <button name="update" type="submit" class="form-control btn btn-primary">Update</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -81,12 +169,6 @@ if (!$_SESSION['id_user']) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script>
-      $(document).ready( function () {
-          $('#myTable').DataTable();
-      } );
-    </script>
 </body>
 
 </html>
