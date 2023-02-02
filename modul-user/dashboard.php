@@ -32,7 +32,7 @@ if (isset($_POST['update'])) {
 }
 ?>
 
-<!doctype html>
+<!doctype html>`
 <html lang="en">
 
 <head>
@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
                 <div class="card">
                     <div class="card-body">
                         <label> Selamat Datang <?php echo $_SESSION['nama_lengkap'] ?><br> di Modul User</label><br>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalRegister">+ tambah data</button>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalRegister"><i class="fa-solid fa-user-plus"></i> tambah data</button>
                         <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -104,8 +104,8 @@ if (isset($_POST['update'])) {
                                     echo '<tr><td>' . $r->nama_lengkap . '</td>';
                                     echo '<td>' . $r->username . '</td>';
                                     echo '<td>' . $r->password . '</td>';
-                                    echo '<td><a href="#" type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal' . $r->id_user . '">Edit</a></td>';
-                                    echo '<td><form action="" method="post"><input name="id_user" type="hidden" value=' . $r->id_user . '><button type="submit" class="btn btn-danger">hapus</form></td>';
+                                    echo '<td><a href="#" type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal' . $r->id_user . '"><i class="fa-solid fa-pen-to-square"></i> Edit</a></td>';
+                                    echo '<td><form action="" method="post"><input name="id_user" type="hidden" value=' . $r->id_user . '><button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> hapus</form></td>';
                                     echo '<td></td></tr>';
                                     echo '<div class="modal fade" id="myModal' . $r->id_user . '" role="dialog" aria-labelledby="myModal' . $r->id_user . 'Label" aria-hidden="true">
                                 <div class="modal-dialog" role="document">

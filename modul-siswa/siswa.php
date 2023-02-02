@@ -44,7 +44,7 @@
                       <td><?php echo $row['alamat'] ?></td>
                       <td class="text-center">
                         <a href="edit-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-primary">EDIT</a>
-                        <a href="hapus-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i> HAPUS</a>
+                        <a href="hapus-siswa.php?id=<?php echo $row['id_siswa'] ?>" class="btn btn-sm btn-danger">HAPUS</a>
                       </td>
                   </tr>
 
