@@ -77,7 +77,7 @@ if (isset($_POST['update'])) {
                         <label>SISWA</label>
                         Selamat Datang <?php echo $_SESSION['username'] ?>
                         <br>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#modalAdd">+ tambah data</button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#modalAdd"><i class="fa-sharp fa-solid fa-user-plus"></i> tambah data</button>
                         <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -101,7 +101,7 @@ if (isset($_POST['update'])) {
                                                 <input type="file" placeholder="upload foto" name="gambar" id="" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <button name="addSiswa" type="submit" class="form-control btn btn-success">Simpan</button>
+                                                <button name="addSiswa" type="submit" class="form-control btn btn-success"><i class="fa-sharp fa-solid fa-check"></i> Simpan</button>
                                             </div>
                                         </form>
                                     </div>
@@ -149,11 +149,11 @@ if (isset($_POST['update'])) {
                                         <td>
                                             <form action="" method="post">
                                                 <input type="hidden" name="id_siswa" value="<?= $d->id_siswa ?>">
-                                                <button name="hapusSiswa" class="btn btn-danger">hapus</button>
+                                                <button name="hapusSiswa" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i> hapus</button>
                                             </form>
                                         </td>
 
-                                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdate<?= $d->id_siswa ?>">edit</button>
+                                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdate<?= $d->id_siswa ?>"><i class="fa-sharp fa-solid fa-pen-to-square"></i> edit</button>
                                             <div class="modal fade" id="modalUpdate<?= $d->id_siswa ?>">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-dialog" role="document">
