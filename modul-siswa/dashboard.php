@@ -15,13 +15,30 @@ if (isset($_POST['addSiswa'])) {
     $nama_lengkap = $_POST['nama_lengkap'];
     $nis = $_POST['nis'];
     $alamat = $_POST['alamat'];
-    $q = "INSERT INTO tbl_siswa(nama_lengkap, nis, alamat) VALUES (' $nama_lengkap  ', '  $nis  ', '  $alamat  ')";
+
+    // esktensi yang diperbolehkan
+    $ekstensi_diperbolehkan = array('png', 'jpg');
+    $gambar = $_FILES['gambar']['name'];
+    $x = explode('.', $gambar);
+    $ekstensi = strtolower(end($x));
+    $file_tmp = $_FILES['gambar']['tmp_name'];
+    if (!empty($gambar)) {
+        if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+            //upload gambarnya
+            move_uploaded_file($file_tmp, '../assets/images/siswa/' . $gambar);
+        }
+    }
+
+
+    $q = "INSERT INTO tbl_siswa(nama_lengkap, nis, alamat, gambar) VALUES (' $nama_lengkap  ', '  $nis  ', '  $alamat  ', '$gambar')";
     $connection->query($q);
 }
 //jika tombol hapus di klik
 if (isset($_POST['hapusSiswa'])) {
     $id_siswa = $_POST['id_siswa'];
-    $q = "DELETE FROM tbl_siswa WHERE id_siswa = '$id_siswa'";
+    $gambar = "SELECT gambar from tbl_siswa WHERE id_siswa = '$id_siswa'";
+    $getGambar =
+        $q = "DELETE FROM tbl_siswa WHERE id_siswa = '$id_siswa'";
     $connection->query($q);
 }
 // jika tombol update di klik
@@ -66,7 +83,7 @@ if (isset($_POST['update'])) {
                                 <div class="modal-content">
                                     <div class="modal-header">Tambah Data</div>
                                     <div class="modal-body">
-                                        <form action="" method="post">
+                                        <form action="" method="post" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label>Nama Lengkap</label>
                                                 <input type="text" placeholder="isikan nama anda" name="nama_lengkap" id="" class="form-control">
@@ -78,6 +95,10 @@ if (isset($_POST['update'])) {
                                             <div class="form-group">
                                                 <label>Alamat</label>
                                                 <input type="text" placeholder="isikan alamat" name="alamat" id="" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Foto</label>
+                                                <input type="file" placeholder="upload foto" name="gambar" id="" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <button name="addSiswa" type="submit" class="form-control btn btn-success">Simpan</button>
@@ -95,6 +116,7 @@ if (isset($_POST['update'])) {
                                     <th>nama lengkap</th>
                                     <th>nis</th>
                                     <th>alamat</th>
+                                    <th>Foto</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -118,9 +140,16 @@ if (isset($_POST['update'])) {
                                             <?= $d->alamat ?>
                                         </td>
                                         <td>
+                                            <?php if (!empty($d->gambar)) { ?>
+                                                <img class="img-thumbnail" style="max-width:100px" src="../assets/images/siswa/<?= $d->gambar ?>" alt="">
+                                            <?php } else { ?>
+                                                <img class="img-thumbnail" style="max-width:100px" src="../assets/images/siswa/" alt="">
+                                            <?php } ?>
+                                        </td>
+                                        <td>
                                             <form action="" method="post">
                                                 <input type="hidden" name="id_siswa" value="<?= $d->id_siswa ?>">
-                                                <button name="hapusSiswa" class="btn btn-danger">hapus
+                                                <button name="hapusSiswa" class="btn btn-danger">hapus</button>
                                             </form>
                                         </td>
 
