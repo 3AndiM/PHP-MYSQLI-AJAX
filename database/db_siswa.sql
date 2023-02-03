@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2023 at 03:28 AM
+-- Generation Time: Feb 03, 2023 at 04:29 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -33,6 +33,14 @@ CREATE TABLE `tbl_siswa` (
   `nis` varchar(100) NOT NULL,
   `alamat` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_siswa`
+--
+
+INSERT INTO `tbl_siswa` (`id_siswa`, `nama_lengkap`, `nis`, `alamat`) VALUES
+(4, ' Kimsty  ', '  kimsty  ', '  jakarta  '),
+(5, ' qwerty  ', '  qwerty  ', '  qwerty  ');
 
 -- --------------------------------------------------------
 
@@ -79,7 +87,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_siswa`
 --
 ALTER TABLE `tbl_siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
